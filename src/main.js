@@ -8,7 +8,7 @@ import Axios from 'axios'
 
 Vue.config.productionTip = false;
 
-Axios.defaults.baseURL = process.env.API_ENDPOINT;
+Axios.defaults.baseURL = "https://localhost:5001/api";
 
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
