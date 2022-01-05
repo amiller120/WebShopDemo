@@ -8,7 +8,7 @@ import Axios from 'axios'
 
 Vue.config.productionTip = false;
 
-Axios.defaults.baseURL = process.env.API_ENDPOINT;
+Axios.defaults.baseURL = process.env.VUE_APP_API_ENDPOINT;
 
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
