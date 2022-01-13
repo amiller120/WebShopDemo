@@ -20,4 +20,17 @@ public class ProductController : ControllerBase
             }
         };
     }
+
+    [HttpGet("{id}")]
+    public Product GetById(int id)
+    {
+        return new Product{
+            Id = id,
+            Description = "Description",
+            Title = "Title",
+            Price = 2m,
+            rating = 3.5m
+        };
+
+    }
 }
