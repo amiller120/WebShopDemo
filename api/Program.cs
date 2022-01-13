@@ -1,3 +1,4 @@
+using api;
 using api.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -49,6 +50,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+app.MigrateDatabase().Run();
 
 
