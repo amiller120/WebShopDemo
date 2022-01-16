@@ -26,8 +26,8 @@ public class ProductController : ControllerBase
     {
         return new Product{
             Id = id,
-            Description = "Description",
-            Title = "Title",
+            Description = "Description for the produce will go in this property.",
+            Title = "Jake Busey",
             Price = 2m,
             rating = 3.5m
         };
