@@ -1,4 +1,5 @@
 using api.Models;
+using api.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers;
@@ -7,6 +8,14 @@ namespace api.Controllers;
 [Route("api/[controller]")]
 public class ProductController : ControllerBase
 {
+    private readonly ApiContext _apiContext;
+
+    public ProductController (ApiContext context)
+	{
+        _apiContext = context
+	}
+
+
     [HttpGet]
     public IEnumerable<Product> Get()
     {
