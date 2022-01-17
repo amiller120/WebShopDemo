@@ -30,7 +30,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new() { Title = "WebShopDemo", Version = "v1" });
 });
 
-builder.Services.AddDbContext<ApiContext>(
+builder.Services.AddDbContext<ApiDataContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 var app = builder.Build();
