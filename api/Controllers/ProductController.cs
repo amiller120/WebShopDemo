@@ -1,6 +1,5 @@
 using api.Data;
 using api.Models;
-using api.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers;
@@ -33,18 +32,6 @@ public class ProductController : ControllerBase
         };
     }
 
-    [HttpGet]
-    public IActionResult GetAllProducts(int? productId)
-    {
-        var product = _apiDataContext.Products.FirstOrDefault(product => product.Id == productId);
-        if (product != null)
-        {
-            return Ok(product);
-        }
-        return BadRequest();
-    }
-
-
     [HttpPost]
     public IActionResult CreateNewProduct(Product product)
     {
@@ -61,7 +48,7 @@ public class ProductController : ControllerBase
                 Title = product.Title,
                 Description = product.Description,
                 Price = product.Price,
-
+                rating = product.rating
             });
             context.SaveChanges();
         }
@@ -90,13 +77,12 @@ public class ProductController : ControllerBase
     [HttpGet("{id}")]
     public Product GetById(int id)
     {
-        return new Product{
-            Id = id,
-            Description = "Description",
-            Title = "Title",
-            Price = 2m,
-            rating = 3.5m
-        };
+        var product = _apiDataContext.Products.FirstOrDefault(product => product.Id == id);
+        if (product != null)
+        {
+            return product;
+        }
+        return null;
 
     }
 }
