@@ -1,5 +1,6 @@
 using api.Data;
 using api.Models;
+using api.Data;
 using Microsoft.AspNetCore.Mvc;
 
 namespace api.Controllers;
@@ -84,5 +85,18 @@ public class ProductController : ControllerBase
         }
 
         return Ok();
+    }
+
+    [HttpGet("{id}")]
+    public Product GetById(int id)
+    {
+        return new Product{
+            Id = id,
+            Description = "Description",
+            Title = "Title",
+            Price = 2m,
+            rating = 3.5m
+        };
+
     }
 }

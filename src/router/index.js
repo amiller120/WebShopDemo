@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import NotFound from '../components/NotFound.vue'
 import Shop from '../components/Shop.vue'
+import ProductDetail from '../components/Product/ProductDetail.vue'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ const routes = [
     path: '/shop',
     name: 'Shop',
     component: Shop
+  },
+  {
+    path: '/product-detail/:productId',
+    name: 'ProductDetail',
+    component: ProductDetail
   }
 ]
 

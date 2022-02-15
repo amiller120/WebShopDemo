@@ -6,7 +6,7 @@
     </b-card-text>
     <b-list-group flush>
       <b-list-group-item><b-button pill variant="outline-secondary">Buy a Busey</b-button></b-list-group-item>
-      <b-list-group-item><b-button pill variant="outline-secondary">View</b-button></b-list-group-item>
+      <b-list-group-item><router-link :to="{ name: 'ProductDetail', params: {productId: product.id } }"><b-button pill variant="outline-secondary">View</b-button></router-link></b-list-group-item>
       <b-list-group-item><b-button pill variant="outline-danger">Favorite <b-icon-heart-fill></b-icon-heart-fill></b-button></b-list-group-item>
     </b-list-group>
     
