@@ -9,7 +9,7 @@ namespace api
         {
             using (var scope = host.Services.CreateScope())
             {
-                using (var appContext = scope.ServiceProvider.GetRequiredService<ApiContext>())
+                using (var appContext = scope.ServiceProvider.GetRequiredService<ApiDataContext>())
                 {
                     try
                     {
