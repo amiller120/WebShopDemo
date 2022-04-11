@@ -1,6 +1,7 @@
 using api.Data;
 using api.Models;
 using api.Models.Configuration;
+using api.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 
@@ -12,30 +13,23 @@ public class ProductController : ControllerBase
 {
 
     private readonly ApiDataContext _apiDataContext;
-    private readonly ShopifyConfiguration _shopifyConfig;
-    private readonly HttpClient _httpClient;
+    private readonly IShopifyService _shopifyService;
 
 
     public ProductController(
         ApiDataContext apiDataContext,
-        IOptions<ShopifyConfiguration> shopifyConfig,
-        HttpClient httpClient)
+        IShopifyService shopifyService)
     {
         _apiDataContext = apiDataContext;
-        _shopifyConfig = shopifyConfig.Value;
-        _httpClient = httpClient;
+        _shopifyService = shopifyService;
     }
 
 
 
-
-
-
-
-
     [HttpGet]
-    public IEnumerable<Product> Get()
+    public async Task<IEnumerable<Product>> Get()
     {
+        //return await _shopifyService.GetProducts();
         return new List<Product>{new Product
             {
                 Id = 2,
@@ -92,6 +86,7 @@ public class ProductController : ControllerBase
     [HttpGet("{id}")]
     public Product GetById(int id)
     {
+        //var product = _shopifyService.GetProductById(id);
         var product = _apiDataContext.Products.FirstOrDefault(product => product.Id == id);
         if (product != null)
         {
