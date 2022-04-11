@@ -1,6 +1,8 @@
 using api.Data;
 using api.Models;
+using api.Models.Configuration;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace api.Controllers;
 
@@ -10,12 +12,25 @@ public class ProductController : ControllerBase
 {
 
     private readonly ApiDataContext _apiDataContext;
+    private readonly ShopifyConfiguration _shopifyConfig;
+    private readonly HttpClient _httpClient;
 
 
-    public ProductController(ApiDataContext apiDataContext)
+    public ProductController(
+        ApiDataContext apiDataContext,
+        IOptions<ShopifyConfiguration> shopifyConfig,
+        HttpClient httpClient)
     {
         _apiDataContext = apiDataContext;
+        _shopifyConfig = shopifyConfig.Value;
+        _httpClient = httpClient;
     }
+
+
+
+
+
+
 
 
     [HttpGet]

@@ -1,5 +1,6 @@
 using api;
 using api.Data;
+using api.Models.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -24,6 +25,8 @@ builder.Services.AddCors(options =>
         });
 });
 
+var shopifyConfig = builder.Configuration.GetSection("ShopifyConfiguration");
+builder.Services.Configure<ShopifyConfiguration>(shopifyConfig);
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(c =>
 {
@@ -32,6 +35,7 @@ builder.Services.AddSwaggerGen(c =>
 
 builder.Services.AddDbContext<ApiDataContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 var app = builder.Build();
 
