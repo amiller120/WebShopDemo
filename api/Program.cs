@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Data;
+using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,14 +39,6 @@ builder.Services.AddDbContext<ApiDataContext>(
 
 var shopifyConfig = builder.Configuration.GetSection("ShopifyConfiguration");
 builder.Services.Configure<ShopifyConfiguration>(shopifyConfig);
-
-var boundShopifyConfig = shopifyConfig.Get<ShopifyConfiguration>();
-builder.Services.AddHttpClient<IShopifyService, ShopifyService>(client =>
-{
-    client.BaseAddress = new Uri(boundShopifyConfig.MyShopifyUrl ?? "");
-    client.DefaultRequestHeaders.Add("Content-Type", "application/json");
-    client.DefaultRequestHeaders.Add("X-Shopify-Access-Token", boundShopifyConfig.AccessToken);
-});
 
 builder.Services.AddTransient<IShopifyService, ShopifyService>();
 

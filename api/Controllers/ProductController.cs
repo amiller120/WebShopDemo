@@ -1,5 +1,5 @@
 using api.Data;
-using api.Models;
+using api.Models.Shopify;
 using api.Models.Configuration;
 using api.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -29,16 +29,7 @@ public class ProductController : ControllerBase
     [HttpGet]
     public async Task<IEnumerable<Product>> Get()
     {
-        //return await _shopifyService.GetProducts();
-        return new List<Product>{new Product
-            {
-                Id = 2,
-                Title = "Title", 
-                Description = "Description",
-                Price = 2m,
-                rating = 3.5m
-            }
-        };
+        return await _shopifyService.GetProducts();
     }
 
     [HttpPost]
@@ -49,18 +40,18 @@ public class ProductController : ControllerBase
             return BadRequest("Invalid entry");
         }
 
-        using (var context = _apiDataContext)
-        {
-            context.Products.Add(new Product()
-            {
-                Id = product.Id,
-                Title = product.Title,
-                Description = product.Description,
-                Price = product.Price,
-                rating = product.rating
-            });
-            context.SaveChanges();
-        }
+        //using (var context = _apiDataContext)
+        //{
+        //    context.Products.Add(new Product()
+        //    {
+        //        Id = product.Id,
+        //        Title = product.Title,
+        //        Description = product.Description,
+        //        Price = product.Price,
+        //        rating = product.rating
+        //    });
+        //    context.SaveChanges();
+        //}
         return Ok();
     }
 
@@ -84,10 +75,9 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public Product GetById(int id)
+    public async Task<Product> GetById(int id)
     {
-        //var product = _shopifyService.GetProductById(id);
-        var product = _apiDataContext.Products.FirstOrDefault(product => product.Id == id);
+        var product = await _shopifyService.GetProductById(id);
         if (product != null)
         {
             return product;

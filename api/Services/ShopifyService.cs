@@ -1,8 +1,8 @@
-﻿using api.Models;
-using api.Models.Configuration;
+﻿using api.Models.Configuration;
+using api.Models.Shopify;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
-using System.Text;
+using System.Net.Http.Headers;
 
 namespace api.Services
 {
@@ -11,27 +11,29 @@ namespace api.Services
         private readonly HttpClient _httpClient;
         private readonly ShopifyConfiguration _shopifyConfig;
 
-        public ShopifyService(HttpClient httpClient,
-                              IOptions<ShopifyConfiguration> shopifyConfig)
+        public ShopifyService(IOptions<ShopifyConfiguration> shopifyConfig)
         {
-            _httpClient = httpClient;
+            _httpClient = new HttpClient();
             _shopifyConfig = shopifyConfig.Value;
+            _httpClient.BaseAddress = new Uri(_shopifyConfig.MyShopifyUrl ?? "");
+            _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _httpClient.DefaultRequestHeaders.Add("X-Shopify-Access-Token", _shopifyConfig.AccessToken);
         }
 
         public async Task<List<Product>> GetProducts()
         {
-            var response = await _httpClient.GetAsync("products");
+            var response = await _httpClient.GetAsync("2022-04/products.json");
             var payload = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
-                var products = JsonConvert.DeserializeObject<List<Product>>(payload);
-                return products ?? new List<Product>();
+                var products = JsonConvert.DeserializeObject<ProductListRoot>(payload);
+                return products?.Products ?? new List<Product>();
             }
 
             return new List<Product>();
         }
 
-        public async Task<Product> GetProduct(int id)
+        public async Task<Product> GetProductById(int id)
         {
             var response = await _httpClient.GetAsync($"product/{id}");
             var payload = await response.Content.ReadAsStringAsync();
