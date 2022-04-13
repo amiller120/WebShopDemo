@@ -15,14 +15,14 @@ namespace api.Services
         {
             _httpClient = new HttpClient();
             _shopifyConfig = shopifyConfig.Value;
-            _httpClient.BaseAddress = new Uri(_shopifyConfig.MyShopifyUrl ?? "");
+            _httpClient.BaseAddress = new Uri($"{_shopifyConfig.MyShopifyUrl}{DateTime.Now.Year}-{DateTime.Now.ToString("MM")}/" ?? "");
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _httpClient.DefaultRequestHeaders.Add("X-Shopify-Access-Token", _shopifyConfig.AccessToken);
         }
 
         public async Task<List<Product>> GetProducts()
         {
-            var response = await _httpClient.GetAsync("2022-04/products.json");
+            var response = await _httpClient.GetAsync("products.json");
             var payload = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
