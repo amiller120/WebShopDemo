@@ -4,7 +4,7 @@
     <b-row>
       <b-col sm="9" class="pr-1 pt-2"
         ><img
-          src="https://production-livingdocs-bluewin-ch.imgix.net/2019/8/23/d6ca0619-9260-497b-a6ad-88bf0aad83b8.jpeg?w=1024&auto=format"
+          src="product.image"
           class="
             img-fluid
             ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}

@@ -5,14 +5,14 @@
       <b-row>
         
             <b-card-group columns>
-              <div
+        <div
           class="card column is-one-quarter"
           v-for="product in products"
           :key="product.id"
         >
           <b-col>
               <b-card
-                img-src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fd.newsweek.com%2Fen%2Ffull%2F1119776%2Fgettyimages-159044749.jpg&f=1&nofb=1"
+                img-src="product.image"
                 img-alt="Image"
                 img-top
               >
@@ -23,7 +23,8 @@
                   Last updated 3 mins ago
                 </b-card-footer>
               </b-card>
-              </b-col>
+          </b-col>
+
         </div>
             </b-card-group>
           
