@@ -1,5 +1,9 @@
-using api.Models;
+using api.Data;
+using api.Models.Shopify;
+using api.Models.Configuration;
+using api.Services;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 
 namespace api.Controllers;
 
@@ -7,30 +11,78 @@ namespace api.Controllers;
 [Route("api/[controller]")]
 public class ProductController : ControllerBase
 {
-    [HttpGet]
-    public IEnumerable<Product> Get()
+
+    private readonly ApiDataContext _apiDataContext;
+    private readonly IShopifyService _shopifyService;
+
+
+    public ProductController(
+        ApiDataContext apiDataContext,
+        IShopifyService shopifyService)
     {
-        return new List<Product>{new Product
-            {
-                Id = 2,
-                Title = "Title", 
-                Description = "Description",
-                Price = 2m,
-                rating = 3.5m
-            }
-        };
+        _apiDataContext = apiDataContext;
+        _shopifyService = shopifyService;
+    }
+
+
+
+    [HttpGet]
+    public async Task<IEnumerable<Product>> Get()
+    {
+        return await _shopifyService.GetProducts();
+    }
+
+    [HttpPost]
+    public IActionResult CreateNewProduct(Product product)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest("Invalid entry");
+        }
+
+        //using (var context = _apiDataContext)
+        //{
+        //    context.Products.Add(new Product()
+        //    {
+        //        Id = product.Id,
+        //        Title = product.Title,
+        //        Description = product.Description,
+        //        Price = product.Price,
+        //        rating = product.rating
+        //    });
+        //    context.SaveChanges();
+        //}
+        return Ok();
+    }
+
+
+    [HttpDelete]
+    public IActionResult DeleteProduct(int id)
+    {
+        if (id <= 0)
+        {
+            return BadRequest("Not a valid product Id");
+        }
+
+        using (var context = _apiDataContext)
+        {
+            var product = context.Products.Where(x => x.Id == id).FirstOrDefault();
+            context.Entry(product).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
+            context.SaveChanges();
+        }
+
+        return Ok();
     }
 
     [HttpGet("{id}")]
-    public Product GetById(int id)
+    public async Task<Product> GetById(int id)
     {
-        return new Product{
-            Id = id,
-            Description = "Description for the produce will go in this property.",
-            Title = "Jake Busey",
-            Price = 2m,
-            rating = 3.5m
-        };
+        var product = await _shopifyService.GetProductById(id);
+        if (product != null)
+        {
+            return product;
+        }
+        return null;
 
     }
 }

@@ -1,4 +1,7 @@
+using api;
 using api.Data;
+using api.Models.Configuration;
+using api.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
@@ -7,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System.Data;
+using System.Net.Http.Headers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -23,14 +27,21 @@ builder.Services.AddCors(options =>
         });
 });
 
+
 builder.Services.AddControllers();
 builder.Services.AddSwaggerGen(c =>
 {
     c.SwaggerDoc("v1", new() { Title = "WebShopDemo", Version = "v1" });
 });
 
-builder.Services.AddDbContext<ApiContext>(
+builder.Services.AddDbContext<ApiDataContext>(
     options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+var shopifyConfig = builder.Configuration.GetSection("ShopifyConfiguration");
+builder.Services.Configure<ShopifyConfiguration>(shopifyConfig);
+
+builder.Services.AddTransient<IShopifyService, ShopifyService>();
+
 
 var app = builder.Build();
 
@@ -49,6 +60,6 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+app.MigrateDatabase().Run();
 
 
