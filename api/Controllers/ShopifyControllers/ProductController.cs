@@ -1,9 +1,7 @@
 using api.Data;
 using api.Models.Shopify.Products;
-using api.Models.Configuration;
 using api.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
 
 namespace api.Controllers;
 
