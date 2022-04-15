@@ -6,5 +6,6 @@
         public string? ShopifyAPIKey { get; set; }
         public string? MyShopifyUrl { get; set; }
         public string? ShopifySecretKey { get; set; }
+        public string? Version { get; set; }
     }
 }
