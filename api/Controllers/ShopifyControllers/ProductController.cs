@@ -50,27 +50,8 @@ public class ProductController : ControllerBase
         }
     }
 
-
-    [HttpDelete]
-    public IActionResult DeleteProduct(int id)
-    {
-        if (id <= 0)
-        {
-            return BadRequest("Not a valid product Id");
-        }
-
-        using (var context = _apiDataContext)
-        {
-            var product = context.Products.Where(x => x.Id == id).FirstOrDefault();
-            context.Entry(product).State = Microsoft.EntityFrameworkCore.EntityState.Deleted;
-            context.SaveChanges();
-        }
-
-        return Ok();
-    }
-
     [HttpGet("{id}")]
-    public async Task<Product> GetById(int id)
+    public async Task<Product?> GetById(int id)
     {
         var product = await _shopifyService.GetProductById(id);
         if (product != null)
