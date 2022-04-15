@@ -9,19 +9,5 @@ namespace api.Data
         {
 
         }
-        public DbSet<Product> Products { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Product>().HasData(
-                new Product
-                {
-                    Id = 1,
-                    Title = "Jake Busey",
-                    Description = "Gary Busey's dangerously insane brother",
-                    Price = 1m,
-                    rating = 0
-                });
-        }
     }
 }

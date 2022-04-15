@@ -1,4 +1,4 @@
-﻿namespace api.Models.Shopify
+﻿namespace api.Models.Shopify.Products
 {
     public class Product
     {

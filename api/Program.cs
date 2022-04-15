@@ -40,7 +40,7 @@ builder.Services.AddDbContext<ApiDataContext>(
 var shopifyConfig = builder.Configuration.GetSection("ShopifyConfiguration");
 builder.Services.Configure<ShopifyConfiguration>(shopifyConfig);
 
-builder.Services.AddTransient<IShopifyService, ShopifyService>();
+builder.Services.AddTransient<IProductService, ProductService>();
 
 
 var app = builder.Build();
