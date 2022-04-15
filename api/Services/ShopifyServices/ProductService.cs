@@ -1,5 +1,6 @@
 ﻿using api.Models.Configuration;
 using api.Models.Shopify.Products;
+using api.Models.ShopifyModels.Products;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -35,14 +36,14 @@ namespace api.Services
             return new List<Product>();
         }
 
-        public async Task<Product> GetProductById(int id)
+        public async Task<Product> GetProductById(long id)
         {
-            var response = await _httpClient.GetAsync($"product/{id}");
+            var response = await _httpClient.GetAsync($"products/{id}");
             var payload = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
-                var product = JsonConvert.DeserializeObject<Product>(payload);
-                return product ?? new Product();
+                var productRoot = JsonConvert.DeserializeObject<ProductRoot>(payload);
+                return productRoot?.Product ?? new Product();
             }
 
             return new Product();
