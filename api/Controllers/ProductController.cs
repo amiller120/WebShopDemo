@@ -1,5 +1,5 @@
 using api.Data;
-using api.Models.Shopify;
+using api.Models.Shopify.Products;
 using api.Models.Configuration;
 using api.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -13,12 +13,12 @@ public class ProductController : ControllerBase
 {
 
     private readonly ApiDataContext _apiDataContext;
-    private readonly IShopifyService _shopifyService;
+    private readonly IProductService _shopifyService;
 
 
     public ProductController(
         ApiDataContext apiDataContext,
-        IShopifyService shopifyService)
+        IProductService shopifyService)
     {
         _apiDataContext = apiDataContext;
         _shopifyService = shopifyService;
@@ -33,26 +33,23 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost]
-    public IActionResult CreateNewProduct(Product product)
+    public async Task<IActionResult> CreateNewBasicProduct(Product product)
     {
         if (!ModelState.IsValid)
         {
             return BadRequest("Invalid entry");
         }
+        
+        var responseObject = await _shopifyService.CreateNewBasicProduct(product);
 
-        //using (var context = _apiDataContext)
-        //{
-        //    context.Products.Add(new Product()
-        //    {
-        //        Id = product.Id,
-        //        Title = product.Title,
-        //        Description = product.Description,
-        //        Price = product.Price,
-        //        rating = product.rating
-        //    });
-        //    context.SaveChanges();
-        //}
-        return Ok();
+        if (responseObject != null)
+        {
+            return StatusCode(200);
+        }
+        else
+        {
+            return StatusCode(400);
+        }
     }
 
 

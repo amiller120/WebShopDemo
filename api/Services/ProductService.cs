@@ -1,17 +1,19 @@
 ﻿using api.Models.Configuration;
-using api.Models.Shopify;
+using api.Models.Shopify.Products;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace api.Services
 {
-    public class ShopifyService : IShopifyService
+    public class ProductService : IProductService
     {
         private readonly HttpClient _httpClient;
         private readonly ShopifyConfiguration _shopifyConfig;
 
-        public ShopifyService(IOptions<ShopifyConfiguration> shopifyConfig)
+        public ProductService(IOptions<ShopifyConfiguration> shopifyConfig)
         {
             _httpClient = new HttpClient();
             _shopifyConfig = shopifyConfig.Value;
@@ -45,5 +47,42 @@ namespace api.Services
 
             return new Product();
         }
+
+        public async Task<Product> CreateNewBasicProduct(Product product)
+        {
+            var productRequest = new Product()
+            {
+                id = product.id,
+                title = product.title,
+                body_html = product.body_html,
+                product_type = product.product_type,
+                vendor = product.vendor
+            };
+
+            DefaultContractResolver contractResolver = new DefaultContractResolver
+            {
+                NamingStrategy = new CamelCaseNamingStrategy()
+            };
+
+            var jsonContent = JsonConvert.SerializeObject(productRequest,
+                Formatting.None,
+                new JsonSerializerSettings
+                {
+                    ContractResolver = contractResolver,
+                    NullValueHandling = NullValueHandling.Ignore
+                });
+
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            var response = await _httpClient.PostAsync(new Uri("products.json"), content).ConfigureAwait(false);
+            var responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var responseObject = JsonConvert.DeserializeObject<Product>(responseBody);
+
+            if(responseObject != null)
+            {
+                return responseObject;
+            }
+            return new Product();
+        }
     }
 }
+
