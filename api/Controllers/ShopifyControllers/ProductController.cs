@@ -51,7 +51,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public async Task<Product?> GetById(int id)
+    public async Task<Product?> GetById(long id)
     {
         var product = await _shopifyService.GetProductById(id);
         if (product != null)
