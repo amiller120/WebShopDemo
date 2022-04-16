@@ -17,7 +17,7 @@ namespace api.Services
         {
             _httpClient = new HttpClient();
             _shopifyConfig = shopifyConfig.Value;
-            _httpClient.BaseAddress = new Uri($"{_shopifyConfig.MyShopifyUrl}/admin/api/{_shopifyConfig.Version}/" ?? "");
+            _httpClient.BaseAddress = new Uri($"{_shopifyConfig.MyShopifyUrl}admin/api/{_shopifyConfig.Version}/" ?? "");
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _httpClient.DefaultRequestHeaders.Add("X-Shopify-Access-Token", _shopifyConfig.AccessToken);
         }
@@ -52,7 +52,6 @@ namespace api.Services
         {
             var productRequest = new Product()
             {
-                id = product.id,
                 title = product.title,
                 body_html = product.body_html,
                 product_type = product.product_type,
@@ -72,8 +71,8 @@ namespace api.Services
                     NullValueHandling = NullValueHandling.Ignore
                 });
 
-            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync(new Uri("products.json"), content).ConfigureAwait(false);
+            var content = new StringContent(jsonContent, Encoding.Default, "application/json");
+            var response = await _httpClient.PostAsync(new Uri($"{_httpClient.BaseAddress}products.json"), content).ConfigureAwait(false);
             var responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             var responseObject = JsonConvert.DeserializeObject<Product>(responseBody);
 
@@ -81,7 +80,7 @@ namespace api.Services
             {
                 return responseObject;
             }
-            return new Product();
+            return null;
         }
     }
 }
