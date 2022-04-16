@@ -51,30 +51,19 @@ namespace api.Services
 
         public async Task<Product> CreateNewBasicProduct(Product product)
         {
-            var productRequest = new Product()
+            ProductRoot productRoot = new ProductRoot();
+            productRoot.Product = new Product()
             {
-                id = product.id,
                 title = product.title,
                 body_html = product.body_html,
                 product_type = product.product_type,
-                vendor = product.vendor
+                vendor = product.vendor,
+                tags = product.tags,
+                status = "active", //must be set to active, draft, or archived
             };
 
-            DefaultContractResolver contractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new CamelCaseNamingStrategy()
-            };
-
-            var jsonContent = JsonConvert.SerializeObject(productRequest,
-                Formatting.None,
-                new JsonSerializerSettings
-                {
-                    ContractResolver = contractResolver,
-                    NullValueHandling = NullValueHandling.Ignore
-                });
-
-            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync(new Uri("products.json"), content).ConfigureAwait(false);
+            JsonContent content = JsonContent.Create(productRoot, new MediaTypeHeaderValue("application/json"));
+            var response = await _httpClient.PostAsync("products.json", content).ConfigureAwait(false);
             var responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             var responseObject = JsonConvert.DeserializeObject<Product>(responseBody);
 
