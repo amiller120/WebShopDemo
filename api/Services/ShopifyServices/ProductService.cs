@@ -1,5 +1,6 @@
 ﻿using api.Models.Configuration;
 using api.Models.Shopify.Products;
+using api.Models.ShopifyModels.Products;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
@@ -35,14 +36,14 @@ namespace api.Services
             return new List<Product>();
         }
 
-        public async Task<Product> GetProductById(int id)
+        public async Task<Product> GetProductById(long id)
         {
-            var response = await _httpClient.GetAsync($"product/{id}");
+            var response = await _httpClient.GetAsync($"products/{id}");
             var payload = await response.Content.ReadAsStringAsync();
             if (response.IsSuccessStatusCode)
             {
-                var product = JsonConvert.DeserializeObject<Product>(payload);
-                return product ?? new Product();
+                var productRoot = JsonConvert.DeserializeObject<ProductRoot>(payload);
+                return productRoot?.Product ?? new Product();
             }
 
             return new Product();
@@ -50,29 +51,19 @@ namespace api.Services
 
         public async Task<Product> CreateNewBasicProduct(Product product)
         {
-            var productRequest = new Product()
+            ProductRoot productRoot = new ProductRoot();
+            productRoot.Product = new Product()
             {
                 title = product.title,
                 body_html = product.body_html,
                 product_type = product.product_type,
-                vendor = product.vendor
+                vendor = product.vendor,
+                tags = product.tags,
+                status = "active", //must be set to active, draft, or archived
             };
 
-            DefaultContractResolver contractResolver = new DefaultContractResolver
-            {
-                NamingStrategy = new CamelCaseNamingStrategy()
-            };
-
-            var jsonContent = JsonConvert.SerializeObject(productRequest,
-                Formatting.None,
-                new JsonSerializerSettings
-                {
-                    ContractResolver = contractResolver,
-                    NullValueHandling = NullValueHandling.Ignore
-                });
-
-            var content = new StringContent(jsonContent, Encoding.Default, "application/json");
-            var response = await _httpClient.PostAsync(new Uri($"{_httpClient.BaseAddress}products.json"), content).ConfigureAwait(false);
+            JsonContent content = JsonContent.Create(productRoot, new MediaTypeHeaderValue("application/json"));
+            var response = await _httpClient.PostAsync("products.json", content).ConfigureAwait(false);
             var responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             var responseObject = JsonConvert.DeserializeObject<Product>(responseBody);
 

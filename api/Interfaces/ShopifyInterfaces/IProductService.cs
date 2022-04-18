@@ -6,7 +6,7 @@ namespace api.Services
     {
         Task<List<Product>> GetProducts();
 
-        Task<Product> GetProductById(int id);
+        Task<Product> GetProductById(long id);
 
         Task<Product> CreateNewBasicProduct(Product product);
     }
