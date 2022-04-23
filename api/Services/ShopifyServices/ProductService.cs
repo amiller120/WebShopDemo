@@ -18,7 +18,7 @@ namespace api.Services
         {
             _httpClient = new HttpClient();
             _shopifyConfig = shopifyConfig.Value;
-            _httpClient.BaseAddress = new Uri($"{_shopifyConfig.MyShopifyUrl}/admin/api/{_shopifyConfig.Version}/" ?? "");
+            _httpClient.BaseAddress = new Uri($"{_shopifyConfig.MyShopifyUrl}admin/api/{_shopifyConfig.Version}/" ?? "");
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             _httpClient.DefaultRequestHeaders.Add("X-Shopify-Access-Token", _shopifyConfig.AccessToken);
         }
@@ -72,7 +72,7 @@ namespace api.Services
             {
                 return responseObject.Product;
             }
-            return new Product();
+            return null;
         }
     }
 }
