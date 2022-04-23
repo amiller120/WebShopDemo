@@ -59,17 +59,18 @@ namespace api.Services
                 product_type = product.product_type,
                 vendor = product.vendor,
                 tags = product.tags,
+                image = product.image,
                 status = "active", //must be set to active, draft, or archived
             };
 
             JsonContent content = JsonContent.Create(productRoot, new MediaTypeHeaderValue("application/json"));
             var response = await _httpClient.PostAsync("products.json", content).ConfigureAwait(false);
             var responseBody = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-            var responseObject = JsonConvert.DeserializeObject<Product>(responseBody);
+            var responseObject = JsonConvert.DeserializeObject<ProductRoot>(responseBody);
 
             if(responseObject != null)
             {
-                return responseObject;
+                return responseObject.Product;
             }
             return new Product();
         }
