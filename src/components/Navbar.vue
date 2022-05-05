@@ -5,6 +5,9 @@
             <b-navbar-nav>
                 <b-nav-item to="/shop">Shop</b-nav-item>
             </b-navbar-nav>
+            <b-navbar-nav>
+                <b-nav-item to="/product-create">New Product</b-nav-item>
+            </b-navbar-nav>
             <b-navbar-nav class="ml-auto">
                 <b-nav-item right><b-icon icon="cart4" style="color:white;"></b-icon></b-nav-item>
             </b-navbar-nav>

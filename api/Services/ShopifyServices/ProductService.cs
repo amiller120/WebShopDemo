@@ -58,8 +58,7 @@ namespace api.Services
                 body_html = product.body_html,
                 product_type = product.product_type,
                 vendor = product.vendor,
-                tags = product.tags,
-                status = "active", //must be set to active, draft, or archived
+                status = "" //must be set to active, draft, or archived
             };
 
             JsonContent content = JsonContent.Create(productRoot, new MediaTypeHeaderValue("application/json"));
