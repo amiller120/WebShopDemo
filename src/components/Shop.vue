@@ -12,7 +12,7 @@
         >
           <b-col>
               <b-card
-                img-src="product.image"
+                img-src="product.image.src"
                 img-alt="Image"
                 img-top
               >

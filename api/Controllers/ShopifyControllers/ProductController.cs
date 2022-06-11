@@ -1,5 +1,6 @@
 using api.Data;
 using api.Models.Shopify.Products;
+using api.Models.ShopifyModels.Products;
 using api.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,7 +32,7 @@ public class ProductController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IActionResult> CreateNewBasicProduct(Product product)
+    public async Task<IActionResult> Post([FromForm] CreateProductViewModel product)
     {
         if (!ModelState.IsValid)
         {

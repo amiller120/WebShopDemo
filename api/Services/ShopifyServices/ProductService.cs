@@ -49,18 +49,25 @@ namespace api.Services
             return new Product();
         }
 
-        public async Task<Product> CreateNewBasicProduct(Product product)
+        public async Task<Product> CreateNewBasicProduct(CreateProductViewModel product)
         {
-            ProductRoot productRoot = new ProductRoot();
-            productRoot.Product = new Product()
+            string base64StringEncodedImageToSave;
+            CreateProductRoot productRoot = new CreateProductRoot();
+            using (var ms = new MemoryStream())
             {
-                title = product.title,
-                body_html = product.body_html,
-                product_type = product.product_type,
-                vendor = product.vendor,
-                tags = product.tags,
-                image = product.image,
-                status = "active", //must be set to active, draft, or archived
+                product.Image.CopyTo(ms);
+                var imageByteArray = ms.ToArray();
+                base64StringEncodedImageToSave = Convert.ToBase64String(imageByteArray);
+            }
+            var image = new { Attachment = base64StringEncodedImageToSave };
+            productRoot.Product = new CreateProduct()
+            {
+                title = product.Title,
+                body_html = product.Body_html,
+                product_type = product.Product_type,
+                tags = product.Tags,
+                images = new List<object> { image },
+                status = product.Status
             };
 
             JsonContent content = JsonContent.Create(productRoot, new MediaTypeHeaderValue("application/json"));

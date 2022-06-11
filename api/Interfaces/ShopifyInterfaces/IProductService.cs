@@ -1,4 +1,5 @@
 ﻿using api.Models.Shopify.Products;
+using api.Models.ShopifyModels.Products;
 
 namespace api.Services
 {
@@ -8,6 +9,6 @@ namespace api.Services
 
         Task<Product> GetProductById(long id);
 
-        Task<Product> CreateNewBasicProduct(Product product);
+        Task<Product> CreateNewBasicProduct(CreateProductViewModel product);
     }
 }

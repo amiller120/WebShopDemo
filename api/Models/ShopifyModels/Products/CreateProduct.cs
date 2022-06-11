@@ -1,8 +1,8 @@
-﻿using api.Models.ShopifyModels.Products;
+﻿using api.Models.Shopify.Products;
 
-namespace api.Models.Shopify.Products
+namespace api.Models.ShopifyModels.Products
 {
-    public class Product
+    public class CreateProduct
     {
         public long id { get; set; }
         public string title { get; set; }
@@ -20,7 +20,7 @@ namespace api.Models.Shopify.Products
         public string admin_graphql_api_id { get; set; }
         public List<Variant> variants { get; set; }
         public List<Option> options { get; set; }
-        public List<ProductImage> images { get; set; }
-        public ProductImage image { get; set; }
+        public List<object> images { get; set; }
+        public string image { get; set; }
     }
 }

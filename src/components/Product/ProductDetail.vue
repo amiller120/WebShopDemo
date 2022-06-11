@@ -4,7 +4,7 @@
     <b-row>
       <b-col sm="9" class="pr-1 pt-2"
         ><img
-          src="product.image"
+          :src="product.image.src"
           class="
             img-fluid
             ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}
