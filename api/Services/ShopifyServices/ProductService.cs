@@ -55,11 +55,14 @@ namespace api.Services
             CreateProductRoot productRoot = new CreateProductRoot();
             using (var ms = new MemoryStream())
             {
+                // copy the IFormFile (the image) to a memory stream and convert to a base64 encoded string to post to shopify
                 product.Image.CopyTo(ms);
                 var imageByteArray = ms.ToArray();
                 base64StringEncodedImageToSave = Convert.ToBase64String(imageByteArray);
             }
-            var image = new { Attachment = base64StringEncodedImageToSave };
+            // you have to have the attachment property for the images property for the image to be created on the product
+            // per the shopify doc https://shopify.dev/api/admin-rest/2022-04/resources/product#post-products
+            var image = new { Attachment = base64StringEncodedImageToSave }; 
             productRoot.Product = new CreateProduct()
             {
                 title = product.Title,
