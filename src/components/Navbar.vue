@@ -8,18 +8,22 @@
             </b-navbar-nav>
 
             <b-navbar-nav class="ml-auto">
-                <b-nav-item right><b-icon icon="cart4" style="color:white;"></b-icon></b-nav-item>
+                <b-nav-item v-b-toggle.sidebar-right right><b-icon icon="cart4" style="color:white;"></b-icon></b-nav-item>
+                <CartSidebar></CartSidebar>
             </b-navbar-nav>
         </b-navbar>
     </div>
 </template>
 
 <script>
+import CartSidebar from './cart/CartSidebar.vue'
+
 export default {
-    name: 'Navbar'
+    name: "Navbar",
+    components: { CartSidebar }
 }
 </script>
 
-<style lang="">
-    
+<style scoped>
+   
 </style>

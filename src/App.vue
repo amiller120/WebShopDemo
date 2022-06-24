@@ -1,5 +1,5 @@
 <template>
-  <b-container id="app">
+  <b-container fluid id="app">
     <b-row>
       <b-col>
         <NavBar/>
@@ -46,4 +46,9 @@ export default {
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+ #sidebar-right {
+    margin-top: 3.5em;
+    margin-right: 1em;
+  }
 </style>
