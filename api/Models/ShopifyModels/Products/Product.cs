@@ -14,7 +14,7 @@ namespace api.Models.Shopify.Products
         public DateTime updated_at { get; set; }
         public object published_at { get; set; }
         public string template_suffix { get; set; }
-        public string status { get; set; }
+        public Status status { get; set; }
         public string published_scope { get; set; }
         public string tags { get; set; }
         public string admin_graphql_api_id { get; set; }
