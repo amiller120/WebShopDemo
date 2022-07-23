@@ -1,0 +1,11 @@
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Release\net6.0\publish\api.exe
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Release\net6.0\publish\appsettings.Development.json
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Release\net6.0\publish\appsettings.json
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Release\net6.0\publish\api.dll
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Release\net6.0\publish\api.deps.json
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Release\net6.0\publish\api.runtimeconfig.json
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Release\net6.0\publish\api.pdb
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Release\net6.0\publish\Microsoft.OpenApi.dll
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Release\net6.0\publish\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Release\net6.0\publish\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Release\net6.0\publish\Swashbuckle.AspNetCore.SwaggerUI.dll
