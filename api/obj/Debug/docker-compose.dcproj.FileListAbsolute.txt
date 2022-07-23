@@ -1,0 +1,14 @@
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Debug\api.deps.json
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Debug\api.runtimeconfig.json
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Debug\appsettings.Development.json
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Debug\appsettings.json
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Debug\api.exe
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Debug\api.dll
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Debug\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Debug\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Debug\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Debug\Microsoft.OpenApi.dll
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\bin\Debug\api.pdb
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\obj\Debug\docker-compose.dcproj.AssemblyReference.cache
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\obj\Debug\docker-compose.dcproj.CoreCompileInputs.cache
+C:\Users\abomb\source\repos\vue-js-projects\webshopdemo\api\obj\Debug\docker-compose.dcproj.CopyComplete
